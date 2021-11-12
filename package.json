@@ -1,0 +1,26 @@
+{
+	"name": "synesthesia-snippets",
+	"displayName": "Synesthesia Snippets",
+	"publisher": "synesthesia",
+	"description": "GLSL snippets to help write SSF scenes for Synesthesia. See https://synesthesia.live/docs/index.html for more info",
+	"version": "0.1.0",
+	"engines": {
+    "vscode": "^1.0.0"
+  },
+	"repository": {
+    "type": "git",
+    "url": "https://github.com/gravity-current/synesthesia-snippets.git"
+  },
+	"icon": "syn.png",
+  "contributes": {
+    "snippets": [
+      {
+        "language": "glsl",
+        "path": "synesthesia_snippets.json"
+      }
+    ]
+  },
+	"categories": ["Snippets"],
+	"keywords": ["synesthesia", "shaders", "glsl", "ssf"],
+	"license": "(MIT OR Apache-2.0)"
+}
