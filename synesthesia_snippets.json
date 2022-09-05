@@ -179,6 +179,26 @@
 		"body": "syn_Intensity",
 		"description": "float: similar to syn_FadeInOut, but slowly accumulates to 1.0 depending on the intensity of the song."
 	},
+	"uniform: _mouse": {
+		"prefix": ["_mouse","mouse"], 
+		"body": "_mouse",
+		"description": "vec4: emulates Shadertoy's iMouse variable. XY holds click information, ZW holds last click location."
+	},
+	"uniform: _muv": {
+		"prefix": ["_muv","mouse"], 
+		"body": "_muv",
+		"description": "vec2: normalized mouse position from 0-1. Comparable to _uv"
+	},
+	"uniform: _muvc": {
+		"prefix": ["_muvc","mouse"], 
+		"body": "_muvc",
+		"description": "vec2: aspect ratio corrected mouse position. Comparable to _uvc"
+	},
+	"uniform: _click": {
+		"prefix": ["_click","click","mouse"], 
+		"body": "_click",
+		"description": "vec3: holds current click data for Left (x), Right (y) and Middle (z) click."
+	},
 	"uniform: RENDERSIZE": {
 		"prefix": ["RENDERSIZE", "width", "height"], 
 		"body": "RENDERSIZE",
