@@ -41,7 +41,19 @@ code --install-extension synesthesia-snippets-{version}.vsix
 ```
 
 ## Publishing
-To publish a new version of the extension, run the following commands:
+
+### Setup
+VS Code extensions are published with the vsce cli tool. To install it, run the following command:
+```bash
+npm install -g @vscode/vsce
+```
+To publish the extension, you need to create a [personal access token](https://code.visualstudio.com/api/working-with-extensions/publishing-extension#publishing-extensions). You can then run the following command to login to the VS Code Marketplace:
+```bash
+vsce login synesthesia
+```
+
+### Publish
+To publish a new version of the extension (id: synesthesia.synesthesia-snippets), run the following commands:
 ```bash
 vsce package
 vsce publish {major|minor|patch|version}
