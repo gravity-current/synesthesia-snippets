@@ -16,19 +16,19 @@
     "snippets": [
       {
         "language": "glsl",
-        "path": "glsl_snippets.json"
+        "path": "snippets/glsl.json"
       },
       {
         "language": "javascript",
-        "path": "js_snippets.json"
+        "path": "snippets/js.json"
       },
       {
         "language": "glsl",
-        "path": "uniforms.json"
+        "path": "snippets/uniforms.json"
       },
       {
         "language": "javascript",
-        "path": "uniforms.json"
+        "path": "snippets/uniforms.json"
       }
     ]
   },
