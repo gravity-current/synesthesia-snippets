@@ -1,5 +1,15 @@
 {
-	"uniform: syn_Level": {
+	"uniform: TIME": {
+		"prefix": ["TIME"], 
+		"body": "TIME",
+		"description": "float: the time in seconds since the scene started rendering."
+	},
+	"uniform: FRAMECOUNT": {
+		"prefix": ["FRAMECOUNT"], 
+		"body": "FRAMECOUNT",
+		"description": "float: the number of frames since the scene started rendering."
+	},
+    "uniform: syn_Level": {
 		"prefix": ["syn_Level", "lvl", "volume", "audio"], 
 		"body": "syn_Level",
 		"description": "float: loudness of entire spectrum"
@@ -198,175 +208,5 @@
 		"prefix": ["_click","click","mouse"], 
 		"body": "_click",
 		"description": "vec3: holds current click data for Left (x), Right (y) and Middle (z) click."
-	},
-	"uniform: RENDERSIZE": {
-		"prefix": ["RENDERSIZE", "width", "height"], 
-		"body": "RENDERSIZE",
-		"description": "vec2: the width and height in pixels of the current pass"
-	},
-	"uniform: TIME": {
-		"prefix": ["TIME"], 
-		"body": "TIME",
-		"description": "float: the time in seconds since the scene started rendering."
-	},
-	"uniform: FRAMECOUNT": {
-		"prefix": ["FRAMECOUNT"], 
-		"body": "FRAMECOUNT",
-		"description": "float: the number of frames since the scene started rendering."
-	},
-	"uniform: _xy": {
-		"prefix": ["_xy", "position", "coordinates"], 
-		"body": "_xy",
-		"description": "vec2: the current position of the pixel. Equivalent to gl_FragCoord.xy."
-	},
-	"uniform: _uv": {
-		"prefix": ["_uv", "position", "coordinates"], 
-		"body": "_uv",
-		"description": "vec2: the current normalized position of the pixel, with components in the range 0.0 to 1.0. Equivalent to gl_FragCoord.xy / RENDERSIZE."
-	},
-	"uniform: _uvc": {
-		"prefix": ["_uvc", "position", "coordinates"], 
-		"body": "_uvc",
-		"description": "vec2: the current normalized position of the pixel with aspect ratio correction, such that (0,0) will be in the center of the screen. A circle drawn with these coordinates will not appear stretched.."
-	},
-	"uniform: PI": {
-		"prefix": ["PI"], 
-		"body": "PI",
-		"description": "const float: 3.14159..."
-	},
-	"uniform: PASSINDEX": {
-		"prefix": ["PASSINDEX", "multipass"], 
-		"body": "PASSINDEX",
-		"description": "int: the index of the current pass. If your shader is a one-pass shader (the default), this will always be zero. It starts at 0 and increments by one for each pass of the shader"
-	},
-	"uniform: syn_FinalPass": {
-		"prefix": ["syn_FinalPass", "multipass"], 
-		"body": "syn_FinalPass",
-		"description": "sampler2D: the previous frame rendered by the shader. Useful for creating simple visual feedback effects."
-	},
-	"uniform: syn_UserImage": {
-		"prefix": ["syn_UserImage", "media", "video", "webcam"], 
-		"body": "syn_UserImage",
-		"description": "sampler2D: the texture of the current media selected in the media section of the control panel. NOTE: to load this texture into your scene, use the _loadUserImage() function"
-	},
-	"uniform: syn_MediaType": {
-		"prefix": ["syn_MediaType", "video", "image", "webcam"], 
-		"body": "syn_MediaType",
-		"description": "float: indicates the type of the current media: None = 0, Image = 1, Video = 2, Webcam = 3. You can check if media is loaded with syn_MediaType > 0.5."
-	},
-	"function: _scale()": {
-		"prefix": ["_scale", "math"], 
-		"body": "_scale(${1:value:float}, ${2:min:float}, ${3:max:float})",
-		"description": "float: Scales a value within the range 0 to 1 to the new range min to max"
-	},
-	"function: _smin()": {
-		"prefix": ["_smin", "math"], 
-		"body": "_smin(${1:a:float}, ${2:b:float}, ${3:exponent:float})",
-		"description": "float: Similar to min(float, float), but creates a smooth transition between the two values (from Inigo Quilez)"
-	},
-	"function: _rand()": {
-		"prefix": ["_rand", "math"],
-		"body": "_rand(${1:seed:float|vec2})",
-		"description": "float: Generates a pseudo-random value based on a seed"
-	},
-	"function: _pulse()": {
-		"prefix": ["_pulse", "math"],
-		"body": "_pulse(${1:position:float}, ${2:center:float}, ${3:size:float})",
-		"description": "float: Generates a smooth pulse with a specific center and size. Useful for creating smooth transitions in value across space (using _uv as position) or time (using a dynamic variable as position)"
-	},
-	"function: _sqPulse()": {
-		"prefix": ["_sqPulse", "math"],
-		"body": "_sqPulse(${1:position:float}, ${2:center:float}, ${3:size:float})",
-		"description": "float: Generates a square pulse with a specific center and size. Useful for creating sharp transitions in value across space (using _uv as position) or time (using a dynamic variable as position)"
-	},
-	"function: _triWave()": {
-		"prefix": ["_triWave", "math"],
-		"body": "_triWave(${1:position:float}, ${2:period:float})",
-		"description": "float: Generates a triangle wave with a specific period. Useful for creating linear, periodic changes in value across space (using _uv as position) or time (using a dynamic variable as position)"
-	},
-	"function: _pixelate()": {
-		"prefix": ["_pixelate", "math"],
-		"body": "_pixelate(${1:value:float|vec2|vec3}, ${2:amount:float}",
-		"description": "float|vec2|vec3: clusters/quantizes values into larger 'pixels'"
-	},
-	"function: _noise()": {
-		"prefix": ["_noise", "math", "random"],
-		"body": "_noise(${1:seed:float|vec2|vec3})",
-		"description": "float: creates 1D, 2D, or 3D noise based on a seed. Useful for creating smooth, unpredictable variance across space (using _uv as seed) or time (using a dynamic variable as seed)"
-	},
-	"function: _fbm()": {
-		"prefix": ["_fbm", "noise", "math", "random"], 
-		"body": "_fbm(${1:seed:float|vec2|vec3})",
-		"description": "float: Creates 1D, 2D, or 3D fractal noise, using fractal/fractional Brownian motion. Generates more complex (but more expensive) noise than _noise(), which looks self-similar at all scales"
-	},
-	"function: _statelessContinuousChaotic()": {
-		"prefix": ["_statelessContinuousChaotic", "noise", "math", "random"],
-		"body": "_statelessContinuousChaotic(${1:time:float})",
-		"description": "float: produces stateless, noiselike behaviour given a steadily increasing input (like TIME)"
-	},
-	"function: _uv2uvc()": {
-		"prefix": ["_uv2uvc", "coordinates"], 
-		"body": "_uv2uvc(${1:uv:vec2})",
-		"description": "Transforms _uv coordinates (with origin at the bottom left) to _uvc coordinates (with origin at the center of the screen). Directly modifies the input vector as an inout parameter"
-	},
-	"function: _uvc2uv()": {
-		"prefix": ["_uvc2uv", "coordinates"], 
-		"body": "_uvc2uv(${1:uvc:vec2})",
-		"description": "Transforms _uvc coordinates (with origin at the center of the screen) to _uv coordinates (with origin at the bottom left). Directly modifies the input vector as an inout parameter"
-	},
-	"function: _rotate()": {
-		"prefix": ["_rotate", "transformation", "coordinates"],
-		"body": "_rotate(${1:vector:vec2}, ${2:theta:float})",
-		"description": "vec2: Rotates a vector around the point (0, 0)"
-	},
-	"function: _toPolar()": {
-		"prefix": ["_toPolar", "transformation", "coordinates"],
-		"body": "_toPolar(${1:xy:vec2})",
-		"description": "vec2: Converts a cartesian vector (x, y) into a polar vector (radius, theta)"
-	},
-	"function: _toPolarTrue()": {
-		"prefix": ["_toPolarTrue", "transformation", "coordinates"],
-		"body": "_toPolarTrue(${1:xy:vec2})",
-		"description": "vec2: Converts a cartesian vector (x, y) into a polar vector (radius, theta) with quadrant correction applied, giving full range of rotation"
-	},
-	"function: _toRect()": {
-		"prefix": ["_toRect", "transformation", "coordinates"], 
-		"body": "_toRect(${1:rt:vec2})",
-		"description": "vec2: Converts a polar vector (radius, theta) into a cartesian vector (x, y)"
-	},
-	"function: _rgb2hsv()": {
-		"prefix": ["_rgb2hsv", "color", "hue", "hsb", "hsl"], 
-		"body": "_rgb2hsv(${1:rgb:vec3})",
-		"description": "vec3: Converts an RGB color vector into an equivalent HSV color vector"
-	},
-	"function: _hsv2rgb()": {
-		"prefix": ["_hsv2rgb", "color", "hue", "hsb", "hsl"],  
-		"body": "_hsv2rgb(${1:hsv:vec3})",
-		"description": "vec3: Converts an HSV color vector into an equivalent RGB color vector"
-	},
-	"function: _normalizeRGB()": {
-		"prefix": ["_normalizeRGB", "color"],  
-		"body": "_normalizeRGB(${1:rgb:vec3})",
-		"description": "vec3: Converts an RGB color vector in the range 0 to 255 to a vector in the range 0.0 to 1.0"
-	},
-	"function: _palette()": {
-		"prefix": ["_palette", "color"],  
-		"body": "_palette(${1:index:float}, ${2:biases:vec3}, ${3:amps:vec3}, ${4:freqs:vec3}, ${5:phases:vec3})",
-		"description": "vec3: Returns a color within a palette generated by a cosine function (from Inigo Quilez)"
-	},
-	"function: _loadUserImage()": {
-		"prefix": ["_loadUserImage", "media", "video", "webcam", "texture"], 
-		"body": "_loadUserImage()",
-		"description": "vec4: Loads the color of the selected user media at the current pixel, optionally adjusted by an offset. Anything selected in the media section of the control panel (video, webcam, syphon/spout, etc.) should be accessed in the shader with this function"
-	},
-	"function: _loadUserImageAsMask()": {
-		"prefix": ["_loadUserImageAsMask", "media", "video", "webcam", "texture"],
-		"body": "_loadUserImageAsMask()",
-		"description": "vec4: Loads the selected user media at the current pixel as a mask, with values thresholded to be either 0.0 or 1.0. By multiplying a color vector by one of the output channels (r, g, and b are the same), you can mask the color to only appear when the user image is prominent."
-	},
-	"function: _exists()": {
-		"prefix": ["_exists", "media", "texture"],
-		"body": "_exists(${1:texture:sampler2D});",
-		"description": "Determines if a texture exists. Use this function to check if user media has been selected"
 	}
 }

@@ -16,7 +16,19 @@
     "snippets": [
       {
         "language": "glsl",
-        "path": "synesthesia_snippets.json"
+        "path": "glsl_snippets.json"
+      },
+      {
+        "language": "javascript",
+        "path": "js_snippets.json"
+      },
+      {
+        "language": "glsl",
+        "path": "uniforms.json"
+      },
+      {
+        "language": "javascript",
+        "path": "uniforms.json"
       }
     ]
   },

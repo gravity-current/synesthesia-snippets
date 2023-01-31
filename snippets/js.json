@@ -1,0 +1,87 @@
+{
+    "function: setup()": {
+        "prefix": ["setup"],
+        "body": "function setup() {\n${1:/* code */}\n}",
+        "description": "The setup() function which will be run once when the scene loads. This is useful for initializing variables and registering event handlers. By registering event handlers in the setup function, you can completely forgo the update function."
+    },
+    "function: update()": {
+        "prefix": ["update"],
+        "body": "function update(dt) {\n${1:/* code */}\n}",
+        "description": "The update(dt) function which will be run on every frame. The argument dt stores the time elapsed since the previous frame, which is useful for a variety of purposes (physics simulations, timers, consistent speeds, etc.)."
+    },
+    "function: printGlobalKeys()": {
+        "prefix": ["printGlobalKeys", "printKeys"],
+        "body": "printGlobalKeys()",
+        "description": "Prints a list of all global variables and functions to the console."
+    },
+    "function: setUniform()": {
+        "prefix": ["setUniform", "uniform"],
+        "body": "setUniform(${1:uniformName:string},${2:value:float|array|object});",
+        "description": "Create a GLSL uniform with the given name and value. Value can be float, array, or rgba object. Type is inferred from the value dimensions."
+    },
+    "function: setControl()": {
+        "prefix": ["setControl", "control"],
+        "body": "setControl(${1:controlName:string},${2:values:array}, ${3:options:object});",
+        "description": "Set the value of a control. Values can be a single value or an array of values for XY or Color controls. Options: {dimension: int, bank: string)}. Dimension lets you set the value of a specific dimension of a control. Bank lets you disambiguate `scene` and `meta` controls."
+    },
+    "function: setControlNormalized()": {
+        "prefix": ["setControlNormalized", "controlNormalized"],
+        "body": "setControlNormalized(${1:controlName:string},${2:values:array}, ${3:options:object});",
+        "description": "Set the value of a control, normalized from 0 to 1. Values can be a single value or an array of values for XY or Color controls. Options: {dimension: int, bank: string)}. Dimension lets you set the value of a specific dimension of a control. Bank lets you disambiguate `scene` and `meta` controls."
+    },
+    "function: randomizeControl()": {
+        "prefix": ["randomizeControl"],
+        "body": "randomizeControl(${1:controlName:string});",
+        "description": "Randomize the value of a control. Insensitive to casing and spaces. To target a meta control, you can add 'meta/' in front of the name, like 'meta/brightness'"
+    },
+    "function: defaultControl()": {
+        "prefix": ["defaultControl"],
+        "body": "defaultControl(${1:controlName:string});",
+        "description": "Reset the value of a control to its default value. Insensitive to casing and spaces. To target a meta control, you can add 'meta/' in front of the name, like 'meta/brightness'"
+    },
+    "function: randomizeGroup()": {
+        "prefix": ["randomizeGroup"],
+        "body": "randomizeGroup(${1:groupName:string});",
+        "description": "Randomize the value of all controls in a group. Insensitive to casing and spaces. To target a meta group, you can add 'meta/' in front of the name, like 'meta/color'"
+    },
+    "function: defaultGroup()": {
+        "prefix": ["defaultGroup"],
+        "body": "defaultGroup(${1:groupName:string});",
+        "description": "Reset the value of all controls in a group to their default values. Insensitive to casing and spaces. To target a meta group, you can add 'meta/' in front of the name, like 'meta/color'"
+    },
+    "function: onChange()": {
+        "prefix": ["onChange"],
+        "body": "onChange(${1:target:string}, ${2:callback:function});",
+        "description": "Register a callback function to be called whenever a uniform's value changes. The callback will receive the `value` and `previousValue` of the uniform. `target` can be a control name, audio uniform, or other uniform, and ignores case and spacing characters like - or _."
+    },
+    "function: onOffToOn()": {
+        "prefix": ["onOffToOn"],
+        "body": "onOffToOn(${1:target:string}, ${2:callback:function});",
+        "description": "Register a callback function to be called whenever a uniform's value changes from less than 0.5 to greater than 0.5. The callback will receive the `value` and `previousValue` of the uniform. `target` can be a control name, audio uniform, or other uniform, and ignores case and spacing characters like - or _."
+    },
+    "function: onOnToOff()": {
+        "prefix": ["onOnToOff"],
+        "body": "onOnToOff(${1:target:string}, ${2:callback:function});",
+        "description": "Register a callback function to be called whenever a uniform's value changes from greater than 0.5 to less than 0.5. The callback will receive the `value` and `previousValue` of the uniform. `target` can be a control name, audio uniform, or other uniform, and ignores case and spacing characters like - or _."
+    },
+    "function: whileOn()": {
+        "prefix": ["whileOn"],
+        "body": "whileOn(${1:target:string}, ${2:callback:function});",
+        "description": "Register a callback function to be called every frame while a uniform's value is greater than 0.5. The callback will receive the `value` and `previousValue` of the uniform. `target` can be a control name, audio uniform, or other uniform, and ignores case and spacing characters like - or _."
+    },
+    "function: whileOff()": {
+        "prefix": ["whileOff"],
+        "body": "whileOff(${1:target:string}, ${2:callback:function});",
+        "description": "Register a callback function to be called every frame while a uniform's value is less than 0.5. The callback will receive the `value` and `previousValue` of the uniform. `target` can be a control name, audio uniform, or other uniform, and ignores case and spacing characters like - or _."
+    },
+    "function: textureFinalPass()": {
+        "prefix": ["_textureFinalPass", "texture"],
+        "body": "_textureFinalPass(${1:x:float},${2:y:float});",
+        "description": "Sample the output color of the final pass at normalized (0 to 1) x, y coordinates and return an array of RGB values."
+    },
+    "function: print()": {
+        "prefix": ["print","log"],
+        "body": "print(${1:object});",
+        "description": "Prints the given object to the console."
+    }
+}
