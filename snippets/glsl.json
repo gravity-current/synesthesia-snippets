@@ -178,5 +178,100 @@
 		"prefix": ["_isMediaActive", "media", "video", "webcam"],
 		"body": "_isMediaActive()",
 		"description": "boolean: Use this function to check if user media has been selected"
+	},
+	"function: _map()": {
+		"prefix": ["_map", "math"],
+		"body": "_map(${1:value:float|vec2|vec3|vec4}, ${2:min:float|vec2|vec3|vec4}, ${3:max:float|vec2|vec3|vec4}, ${4:new_min:float|vec2|vec3|vec4}, ${5:new_max:float|vec2|vec3|vec4})",
+		"description": "float | vec2 | vec3 | vec4: Maps a value inside of a given range to a new range, scaling the value linearly."
+	},
+	"function: _inRange()": {
+		"prefix": ["_inRange", "math"],
+		"body": "_inRange(${1:value:float|vec2|vec3|vec4}, ${2:min:float}, ${3:max:float})",
+		"description": "float: Check if a value or all components of a vector are within a given range."
+	},
+	"function: _loadMediaAsMask()": {
+		"prefix": ["_loadMediaAsMask", "media", "mask"],
+		"body": "_loadMediaAsMask()",
+		"description": "vec4: Loads the selected user media at the current pixel as a mask, with values thresholded to be either 0.0 or 1.0."
+	},
+	"function: _nclamp()": {
+		"prefix": ["_nclamp", "math"],
+		"body": "_nclamp(${1:var:float|vec2|vec3|vec4})",
+		"description": "float | vec2 | vec3 | vec4: Clamps a given value between 0 and 1."
+	},
+	"function: _textureMedia()": {
+		"prefix": ["_textureMedia", "media", "texture"],
+		"body": "_textureMedia(${1:uv:vec2})",
+		"description": "vec4: Samples user media at custom UV coordinates with aspect ratio correction."
+	},
+	"function: _textureMediaAsMask()": {
+		"prefix": ["_textureMediaAsMask", "media", "texture"],
+		"body": "_textureMediaAsMask(${1:uv:vec2})",
+		"description": "vec4: Samples user media at the given coordinates as a mask, with values thresholded to be either 0.0 or 1.0."
+	},
+	"function: _hash11()": {
+		"prefix": ["_hash11", "hash"],
+		"body": "_hash11(${1:p:float})",
+		"description": "float: 1-dimensional hash function."
+	},
+	"function: _hash12()": {
+		"prefix": ["_hash12", "hash"],
+		"body": "_hash12(${1:p:vec2})",
+		"description": "vec2: 2-dimensional hash function."
+	},
+	"function: _hash13()": {
+		"prefix": ["_hash13", "hash"],
+		"body": "_hash13(${1:p:vec3})",
+		"description": "vec3: 3-dimensional hash function."
+	},
+	"function: _hash21()": {
+		"prefix": ["_hash21", "hash"],
+		"body": "_hash21(${1:p:float})",
+		"description": "vec2: 2-dimensional hash function."
+	},
+	"function: _hash22()": {
+		"prefix": ["_hash22", "hash"],
+		"body": "_hash22(${1:p:vec2})",
+		"description": "vec2: 2-dimensional hash function."
+	},
+	"function: _hash23()": {
+		"prefix": ["_hash23", "hash"],
+		"body": "_hash23(${1:p:vec3})",
+		"description": "vec2: 3-dimensional hash function."
+	},
+	"function: _hash31()": {
+		"prefix": ["_hash31", "hash"],
+		"body": "_hash31(${1:p:float})",
+		"description": "vec3: 3-dimensional hash function."
+	},
+	"function: _hash32()": {
+		"prefix": ["_hash32", "hash"],
+		"body": "_hash32(${1:p:vec2})",
+		"description": "vec3: 3-dimensional hash function."
+	},
+	"function: _hash33()": {
+		"prefix": ["_hash33", "hash"],
+		"body": "_hash33(${1:p:vec3})",
+		"description": "vec3: 3-dimensional hash function."
+	},
+	"function: _hash41()": {
+		"prefix": ["_hash41", "hash"],
+		"body": "_hash41(${1:p:float})",
+		"description": "vec4: 4-dimensional hash function."
+	},
+	"function: _hash42()": {
+		"prefix": ["_hash42", "hash"],
+		"body": "_hash42(${1:p:vec2})",
+		"description": "vec4: 4-dimensional hash function."
+	},
+	"function: _hash43()": {
+		"prefix": ["_hash43", "hash"],
+		"body": "_hash43(${1:p:vec3})",
+		"description": "vec4: 4-dimensional hash function."
+	},
+	"function: _hash44()": {
+		"prefix": ["_hash44", "hash"],
+		"body": "_hash44(${1:p:vec4})",
+		"description": "vec4: 4-dimensional hash function."
 	}
 }
