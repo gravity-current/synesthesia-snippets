@@ -164,6 +164,16 @@
 		"body": "syn_BPMSin4",
 		"description": "float: a sine wave that oscillates between 0.0 and 1.0, with a frequency equal to ONE QUARTER of the current BPM for slower action."
 	},
+	"uniform: syn_BPMSin8": {
+		"prefix": ["syn_BPMSin8", "LFO", "audio"],
+		"body": "syn_BPMSin8",
+		"description": "float: a sine wave that oscillates between 0.0 and 1.0, with a frequency equal to ONE EIGHTH of the current BPM for slower action."
+	},
+	"uniform: syn_BPMSin16": {
+		"prefix": ["syn_BPMSin16", "LFO", "audio"],
+		"body": "syn_BPMSin16",
+		"description": "float: a sine wave that oscillates between 0.0 and 1.0, with a frequency equal to ONE SIXTEENTH of the current BPM for very slow action."
+	},
 	"uniform: syn_BPMTri": {
 		"prefix": ["syn_BPMTri", "LFO", "audio"], 
 		"body": "syn_BPMTri",
@@ -178,6 +188,16 @@
 		"prefix": ["syn_BPMTri4", "LFO", "audio"], 
 		"body": "syn_BPMTri4",
 		"description": "float: a triangle wave that oscillates between 0.0 and 1.0, with a frequency equal to ONE QUARTER of the current BPM for even slower action."
+	},
+	"uniform: syn_BPMTri8": {
+		"prefix": ["syn_BPMTri8", "LFO", "audio"],
+		"body": "syn_BPMTri8",
+		"description": "float: a triangle wave that oscillates between 0.0 and 1.0, with a frequency equal to ONE EIGHTH of the current BPM for even slower action."
+	},
+		"uniform: syn_BPMTri16": {
+		"prefix": ["syn_BPMTri16", "LFO", "audio"],
+		"body": "syn_BPMTri16",
+		"description": "float: a triangle wave that oscillates between 0.0 and 1.0, with a frequency equal to ONE SIXTEENTH of the current BPM for very slow action."
 	},
 	"uniform: syn_FadeInOut": {
 		"prefix": ["syn_FadeInOut", "audio"], 
