@@ -1,6 +1,9 @@
 # Synesthesia Snippets
-This extension provides GLSL snippets to help write SSF scenes for Synesthesia.
-See https://synesthesia.live/docs/index.html for more info.
+This extension provides GLSL and JavaScript snippets, language support, and JSON validation to help write Synesthesia scenes (`.synScene`).
+
+- **JSON Schema**: `scene.json` files are automatically validated and provided with IntelliSense.
+- **GLSL Snippets**: Code snippets for Synesthesia's uniforms and helper functions.
+- **JS Snippets**: Snippets for `setup()`, `update()`, and Synesthesia API functions.
 
 ## Contributing
 
