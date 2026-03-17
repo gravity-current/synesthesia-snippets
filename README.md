@@ -1,9 +1,10 @@
 # Synesthesia Snippets
-This extension provides GLSL and JavaScript snippets, language support, and JSON validation to help write Synesthesia scenes (`.synScene`).
+This extension provides first-class support for Synesthesia scene folders (`.synScene`) in VS Code.
 
-- **JSON Schema**: `scene.json` files are automatically validated and provided with IntelliSense.
-- **GLSL Snippets**: Code snippets for Synesthesia's uniforms and helper functions.
-- **JS Snippets**: Snippets for `setup()`, `update()`, and Synesthesia API functions.
+- **JSON Schema**: `scene.json` files inside `.synScene` folders are automatically validated and get schema-based IntelliSense.
+- **Rich GLSL IntelliSense**: Synesthesia uniforms, constants, and helper functions show proper completion details, hover docs, and signature help in `main.glsl`.
+- **Rich JavaScript IntelliSense**: Scene lifecycle functions and Synesthesia scripting APIs show proper completion details, hover docs, and signature help in `script.js`.
+- **Snippets Still Work**: Existing snippet bodies remain the source of truth for insert text, so snippet updates automatically feed the runtime providers.
 
 ## Contributing
 
@@ -33,6 +34,12 @@ Learn more about VS Code snippets:
 
 ## Testing
 You can quickly test your changes by pressing `F5` to launch a new VS Code window with your extension loaded.
+
+In the Extension Development Host, open a `.synScene` folder and verify the following:
+
+- `scene.json` shows schema validation and property completion.
+- `main.glsl` keeps normal GLSL coloring from your existing GLSL support and adds Synesthesia completions, hovers, and parameter hints.
+- `script.js` keeps normal JavaScript IntelliSense and adds Synesthesia completions, hovers, and parameter hints.
 
 To test on another computer, package the extension into a .vsix file and install it in VS Code to test it. To do this, run the following command:
 ```bash

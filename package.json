@@ -4,41 +4,66 @@
 	"publisher": "synesthesia",
 	"description": "GLSL snippets to help write SSF scenes for Synesthesia. See https://synesthesia.live/docs/index.html for more info",
 	"version": "0.1.0",
+	"main": "./extension.js",
+	"activationEvents": [
+		"onLanguage:glsl",
+		"onLanguage:javascript",
+		"onLanguage:json",
+		"onLanguage:jsonc"
+	],
 	"engines": {
-    "vscode": "^1.0.0"
-  },
+		"vscode": "^1.74.0"
+	},
 	"repository": {
-    "type": "git",
-    "url": "https://github.com/gravity-current/synesthesia-snippets.git"
-  },
+		"type": "git",
+		"url": "https://github.com/gravity-current/synesthesia-snippets.git"
+	},
 	"icon": "syn.png",
-  "contributes": {
-    "jsonValidation": [
-      {
-        "fileMatch": "scene.json",
-        "url": "./schemas/scene.schema.json"
-      }
-    ],
-    "snippets": [
-      {
-        "language": "glsl",
-        "path": "snippets/glsl.json"
-      },
-      {
-        "language": "javascript",
-        "path": "snippets/js.json"
-      },
-      {
-        "language": "glsl",
-        "path": "snippets/uniforms.json"
-      },
-      {
-        "language": "javascript",
-        "path": "snippets/uniforms.json"
-      }
-    ]
-  },
-	"categories": ["Snippets"],
-	"keywords": ["synesthesia", "shaders", "glsl", "ssf"],
-	"license": "(MIT OR Apache-2.0)"
+	"contributes": {
+		"jsonValidation": [
+			{
+				"fileMatch": [
+					"scene.json",
+					"*.synScene/scene.json",
+					"**/*.synScene/scene.json",
+					"/**/*.synScene/scene.json"
+				],
+				"url": "./schemas/scene.schema.json"
+			}
+		],
+		"snippets": [
+			{
+				"language": "glsl",
+				"path": "snippets/glsl.json"
+			},
+			{
+				"language": "javascript",
+				"path": "snippets/js.json"
+			},
+			{
+				"language": "glsl",
+				"path": "snippets/uniforms.json"
+			},
+			{
+				"language": "javascript",
+				"path": "snippets/uniforms.json"
+			}
+		]
+	},
+	"categories": [
+		"Programming Languages",
+		"Snippets"
+	],
+	"keywords": [
+		"synesthesia",
+		"shaders",
+		"glsl",
+		"ssf"
+	],
+	"license": "(MIT OR Apache-2.0)",
+	"dependencies": {
+		"jsonc-parser": "^3.3.1",
+		"vscode-json-languageservice": "^5.7.2",
+		"vscode-languageserver-textdocument": "^1.0.12"
+	}
 }
