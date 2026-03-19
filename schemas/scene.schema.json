@@ -1,0 +1,359 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://synesthesia.live/schemas/scene/v1.json",
+  "title": "Synesthesia Scene Configuration",
+  "description": "Schema for scene.json in a .synScene directory (Synesthesia Shader Format v1).",
+  "type": "object",
+  "required": ["TITLE"],
+
+  "properties": {
+
+    "TITLE": {
+      "type": "string",
+      "description": "The scene title displayed within Synesthesia. Required."
+    },
+
+    "CREDIT": {
+      "type": "string",
+      "description": "The artist or creator name. Defaults to 'Anonymous' if omitted."
+    },
+
+    "DESCRIPTION": {
+      "type": "string",
+      "description": "A text description of the scene."
+    },
+
+    "IMAGE_PATH": {
+      "type": "string",
+      "description": "Path to the thumbnail image displayed in the scene library, relative to scene.json. Defaults to 'new_scene.png'.",
+      "default": "new_scene.png"
+    },
+
+    "WIDTH": {
+      "type": "integer",
+      "description": "Output width in pixels. Compounded with the in-app resolution setting. Defaults to 1920.",
+      "default": 1920,
+      "minimum": 1
+    },
+
+    "HEIGHT": {
+      "type": "integer",
+      "description": "Output height in pixels. Compounded with the in-app resolution setting. Defaults to 1080.",
+      "default": 1080,
+      "minimum": 1
+    },
+
+    "GPU": {
+      "type": "integer",
+      "description": "GPU intensity hint displayed in the UI. 0 = unset, 1-5 = lightest to most demanding. Does not affect rendering.",
+      "minimum": 0,
+      "maximum": 5,
+      "default": 0
+    },
+
+    "TAGS": {
+      "type": "array",
+      "description": "Metadata tags for the scene.",
+      "items": { "type": "string" }
+    },
+
+    "CONTROLS": {
+      "type": "array",
+      "description": "GUI controls rendered in the control panel. Each control's current value is automatically available as a uniform in main.glsl.",
+      "items": { "$ref": "#/definitions/Control" }
+    },
+
+    "PASSES": {
+      "type": "array",
+      "description": "Multipass render targets. Each target becomes a sampler2D uniform in main.glsl. Use the PASSINDEX uniform to branch per pass.",
+      "items": { "$ref": "#/definitions/RenderPass" }
+    },
+
+    "MEDIA": {
+      "type": "array",
+      "description": "Texture sampling settings for user media (syn_Media). Currently supports one entry.",
+      "items": { "$ref": "#/definitions/MediaObject" },
+      "maxItems": 1
+    },
+
+    "IMAGES": {
+      "type": "array",
+      "description": "Image files bundled with the scene. Each becomes a sampler2D uniform in main.glsl. Files must be placed in an 'images/' subdirectory inside the .synScene folder.",
+      "items": { "$ref": "#/definitions/ImageObject" }
+    },
+
+    "CUBEMAPS": {
+      "type": "array",
+      "description": "Cubemap textures bundled with the scene. Each becomes a samplerCube uniform in main.glsl. Sample with texture(NAME, directionVector).",
+      "items": { "$ref": "#/definitions/CubemapObject" }
+    },
+
+    "HARD_TRANSITIONS": {
+      "type": "array",
+      "description": "Uniforms that snap to a new randomly-selected value on each song transition. Duplicate values increase their probability of selection.",
+      "items": { "$ref": "#/definitions/HardTransition" }
+    },
+
+    "SMOOTH_TRANSITIONS": {
+      "type": "array",
+      "description": "Groups of uniforms where one is 1.0 ('on') and the rest are 0.0 ('off'). On each song transition, a new member is chosen and the group cross-fades. Pair with GLSL mix().",
+      "items": { "$ref": "#/definitions/SmoothTransition" }
+    }
+
+  },
+
+  "additionalProperties": false,
+
+  "definitions": {
+
+    "TextureWrap": {
+      "type": "string",
+      "enum": ["repeat", "clamp", "mirror", "border"],
+      "description": "'repeat' tiles the texture (default). 'clamp' extends the edge pixel. 'mirror' reflects out-of-range UVs. 'border' samples black beyond the borders."
+    },
+
+    "TextureFilter": {
+      "type": "string",
+      "enum": ["linear", "nearest", "mipmap"],
+      "description": "'linear' uses bilinear interpolation (default). 'nearest' preserves hard pixel edges. 'mipmap' uses LOD mipmapping - good for scaling and blur effects."
+    },
+
+    "MediaObject": {
+      "type": "object",
+      "description": "Texture sampling options for user media.",
+      "properties": {
+        "WRAP":   { "$ref": "#/definitions/TextureWrap",   "default": "repeat" },
+        "FILTER": { "$ref": "#/definitions/TextureFilter", "default": "linear" }
+      },
+      "additionalProperties": false
+    },
+
+    "Control": {
+      "type": "object",
+      "required": ["NAME", "TYPE"],
+      "description": "A GUI control. Its value is available as a uniform in main.glsl under the NAME you provide.",
+      "properties": {
+
+        "NAME": {
+          "type": "string",
+          "description": "The uniform name in main.glsl. Underscores render as spaces in the GUI label (e.g. 'my_control' -> 'my control')."
+        },
+
+        "TYPE": {
+          "type": "string",
+          "description": "The control widget type. Append 'smooth' to most types for interpolated value transitions.",
+          "enum": [
+            "slider",         "slider smooth",        "slider speed",
+            "knob",           "knob smooth",           "knob speed",
+            "toggle",         "toggle smooth",
+            "bang",           "bang smooth",           "bang counter",   "bang counter smooth",
+            "xy",             "xy smooth",             "xy speed",
+            "color",          "color smooth",
+            "dropdown",       "dropdown smooth"
+          ]
+        },
+
+        "DEFAULT": {
+          "description": "Initial value when the scene loads. Defaults to 0.0. For multi-dimensional controls (xy, color), use an array - a single number will be broadcast across all dimensions. For color controls, prefer DEF_COLOR.",
+          "oneOf": [
+            { "type": "number" },
+            { "type": "array", "items": { "type": "number" } }
+          ],
+          "default": 0.0
+        },
+
+        "MIN": {
+          "description": "Minimum output value. Defaults to 0.0. For multi-dimensional controls (xy, color), use an array.",
+          "oneOf": [
+            { "type": "number" },
+            { "type": "array", "items": { "type": "number" } }
+          ],
+          "default": 0.0
+        },
+
+        "MAX": {
+          "description": "Maximum output value. Defaults to 1.0. For multi-dimensional controls (xy, color), use an array.",
+          "oneOf": [
+            { "type": "number" },
+            { "type": "array", "items": { "type": "number" } }
+          ],
+          "default": 1.0
+        },
+
+        "PARAMS": {
+          "type": "number",
+          "description": "For 'smooth' controls: transition speed. Smaller = slower (~1/PARAMS frames to complete). For 'bang smooth': envelope duration in frames. Defaults to 0.01.",
+          "exclusiveMinimum": 0,
+          "default": 0.01
+        },
+
+        "UI_GROUP": {
+          "type": "string",
+          "description": "Control panel group name. A new group is created automatically if the name does not already exist."
+        },
+
+        "DESCRIPTION": {
+          "type": "string",
+          "description": "Tooltip text shown when hovering over the control."
+        },
+
+        "LABELS": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Dropdown only. Display strings for each option. If omitted, defaults to 'option 1', 'option 2', etc. Can be used alone (values will auto-set to 0, 1, 2, ...)."
+        },
+
+        "VALUES": {
+          "type": "array",
+          "items": { "type": "number" },
+          "description": "Dropdown only. Numeric values passed to the shader per option. Can be used alone (labels will auto-set to 'option 1', 'option 2', etc.)."
+        },
+
+        "DEF_COLOR": {
+          "type": "array",
+          "items": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+          "minItems": 3,
+          "maxItems": 3,
+          "description": "Color controls only. Default [r, g, b] in the 0.0-1.0 range. Use this instead of DEFAULT for color controls."
+        }
+
+      },
+      "additionalProperties": false
+    },
+
+    "RenderPass": {
+      "type": "object",
+      "required": ["TARGET"],
+      "description": "A render target for multipass shading. The target name becomes a sampler2D uniform in main.glsl.",
+      "properties": {
+
+        "TARGET": {
+          "type": "string",
+          "description": "Name of the render target. Available as a sampler2D uniform in main.glsl. Sample with texture(TARGET, _uv)."
+        },
+
+        "WIDTH": {
+          "type": "integer",
+          "description": "Buffer width in pixels. Omit to match the scene's root WIDTH.",
+          "minimum": 1
+        },
+
+        "HEIGHT": {
+          "type": "integer",
+          "description": "Buffer height in pixels. Omit to match the scene's root HEIGHT.",
+          "minimum": 1
+        },
+
+        "FLOAT": {
+          "type": "boolean",
+          "description": "If true (default), uses RGBA32F 32-bit float precision - recommended for simulations. If false, uses RGBA8 for better performance.",
+          "default": true
+        },
+
+        "DOUBLE_BUFFER": {
+          "type": "boolean",
+          "description": "If true, maintains two buffers so the previous frame's result can be sampled without artifacts. Essential for feedback loops and fluid simulations. Defaults to false.",
+          "default": false
+        },
+
+        "WRAP":   { "$ref": "#/definitions/TextureWrap",   "default": "repeat" },
+        "FILTER": { "$ref": "#/definitions/TextureFilter", "default": "linear" }
+
+      },
+      "additionalProperties": false
+    },
+
+    "ImageObject": {
+      "type": "object",
+      "required": ["NAME", "PATH"],
+      "description": "An image bundled with the scene. Place files in an 'images/' subdirectory. The image becomes a sampler2D uniform in main.glsl.",
+      "properties": {
+
+        "NAME": {
+          "type": "string",
+          "description": "Uniform name in main.glsl. Sample with texture(NAME, _uv)."
+        },
+
+        "PATH": {
+          "type": "string",
+          "description": "Path to the image file relative to scene.json. Supported formats: .jpg, .jpeg, .png."
+        },
+
+        "FILTER": { "$ref": "#/definitions/TextureFilter", "default": "mipmap" },
+        "WRAP":   { "$ref": "#/definitions/TextureWrap",   "default": "repeat" }
+
+      },
+      "additionalProperties": false
+    },
+
+    "CubemapObject": {
+      "type": "object",
+      "required": ["NAME", "PATHS"],
+      "description": "A cubemap texture. Becomes a samplerCube uniform in main.glsl.",
+      "properties": {
+
+        "NAME": {
+          "type": "string",
+          "description": "Uniform name in main.glsl. Sample with texture(NAME, directionVector)."
+        },
+
+        "PATHS": {
+          "type": "array",
+          "description": "Exactly 6 image paths relative to scene.json. Order: +X (right), -X (left), +Y (top), -Y (bottom), +Z (front), -Z (back).",
+          "items": { "type": "string" },
+          "minItems": 6,
+          "maxItems": 6
+        }
+
+      },
+      "additionalProperties": false
+    },
+
+    "HardTransition": {
+      "type": "object",
+      "required": ["UNIFORM", "VALUES"],
+      "description": "On each song transition, the named uniform snaps to a new randomly-selected value from the pool. Add duplicate values to increase their probability.",
+      "properties": {
+
+        "UNIFORM": {
+          "type": "string",
+          "description": "Name of the uniform to transition. Must match a CONTROLS NAME or a manually declared uniform."
+        },
+
+        "VALUES": {
+          "type": "array",
+          "items": { "type": "number" },
+          "minItems": 1,
+          "description": "Pool of values to randomly select from on each transition."
+        }
+
+      },
+      "additionalProperties": false
+    },
+
+    "SmoothTransition": {
+      "type": "object",
+      "required": ["UNIFORMS"],
+      "description": "A family of uniforms where exactly one is 1.0 and the rest are 0.0. On each song transition, a new member becomes active and the group cross-fades over DURATION seconds.",
+      "properties": {
+
+        "UNIFORMS": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 2,
+          "description": "Uniform names in this transition family. Each must match a CONTROLS NAME."
+        },
+
+        "DURATION": {
+          "type": "number",
+          "description": "Cross-fade duration in seconds. Defaults to 0.5.",
+          "exclusiveMinimum": 0,
+          "default": 0.5
+        }
+
+      },
+      "additionalProperties": false
+    }
+
+  }
+}

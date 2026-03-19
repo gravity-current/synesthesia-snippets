@@ -76,7 +76,7 @@
 	},
 	"function: _pixelate()": {
 		"prefix": ["_pixelate", "math"],
-		"body": "_pixelate(${1:value:float|vec2|vec3}, ${2:amount:float}",
+		"body": "_pixelate(${1:value:float|vec2|vec3}, ${2:amount:float})",
 		"description": "float|vec2|vec3: clusters/quantizes values into larger 'pixels'"
 	},
 	"function: _noise()": {
